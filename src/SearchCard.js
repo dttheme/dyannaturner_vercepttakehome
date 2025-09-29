@@ -153,7 +153,7 @@ function SearchCard() {
           ...m,
           {
             from: "bot",
-            text: `Thanks — I received ${newImgs.length} image(s). Ask me anything about them!`,
+            text: `Thanks — I received ${newImgs.length} image(s). Ask me anything!`,
           },
         ]);
       }, 500);
