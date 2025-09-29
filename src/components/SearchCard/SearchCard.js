@@ -9,10 +9,14 @@ import {
 
 function SearchCard() {
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi! I can help you with this product." },
+    { from: "bot", text: "Hi! I'm here to help you with your products." },
     {
       from: "bot",
-      text: "Ask me anything about features, sizing, or shipping.",
+      text: "Upload up to 4 images of your products.",
+    },
+    {
+      from: "bot",
+      text: "Then, ask me anything about features, sizing, or shipping.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -156,7 +160,7 @@ function SearchCard() {
           ...m,
           {
             from: "bot",
-            text: `Thanks — I received ${newImgs.length} image(s). Ask me anything about them!`,
+            text: `Thanks — I received ${newImgs.length} image(s). Ask me anything!`,
           },
         ]);
       }, 500);
