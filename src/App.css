@@ -1,0 +1,28 @@
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+.App-header {
+  background-color: #282c34;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.app-row {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
