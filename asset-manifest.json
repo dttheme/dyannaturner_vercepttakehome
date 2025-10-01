@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/dyannaturner_vercepttakehome/static/css/main.02c2df6b.css",
+    "main.css": "/dyannaturner_vercepttakehome/static/css/main.8d005f21.css",
     "main.js": "/dyannaturner_vercepttakehome/static/js/main.f5081191.js",
     "static/js/453.005716aa.chunk.js": "/dyannaturner_vercepttakehome/static/js/453.005716aa.chunk.js",
     "index.html": "/dyannaturner_vercepttakehome/index.html",
-    "main.02c2df6b.css.map": "/dyannaturner_vercepttakehome/static/css/main.02c2df6b.css.map",
+    "main.8d005f21.css.map": "/dyannaturner_vercepttakehome/static/css/main.8d005f21.css.map",
     "main.f5081191.js.map": "/dyannaturner_vercepttakehome/static/js/main.f5081191.js.map",
     "453.005716aa.chunk.js.map": "/dyannaturner_vercepttakehome/static/js/453.005716aa.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.02c2df6b.css",
+    "static/css/main.8d005f21.css",
     "static/js/main.f5081191.js"
   ]
 }
