@@ -21,8 +21,6 @@ function SearchCard() {
   const BATCH_DEBOUNCE = 1200; // ms
   const MAX_BATCH = 4;
 
-  // callOpenAI is provided by ./openaiClient
-
   async function handleSubmit(e) {
     e.preventDefault();
     const text = input.trim();
@@ -57,8 +55,6 @@ function SearchCard() {
       if (batchTimerRef.current) clearTimeout(batchTimerRef.current);
       batchTimerRef.current = setTimeout(() => flushBatch(), BATCH_DEBOUNCE);
     }
-
-    // per-submit mock response removed — replies are produced via batching
   }
 
   function flushBatch() {
@@ -159,9 +155,6 @@ function SearchCard() {
       }, 500);
     });
   }
-
-  // (Image-question form and handler removed — submitting while images are present
-  // is handled inside handleSubmit to treat the text as a single question about all images.)
 
   function handleFileInputChange(e) {
     const files = Array.from(e.target.files || []);
