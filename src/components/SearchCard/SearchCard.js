@@ -2,10 +2,7 @@ import "./SearchCard.css";
 
 import React, { useState, useRef, useEffect } from "react";
 import { callOpenAI } from "../../lib/openaiClient";
-import {
-  promptUploadForImages,
-  submitWithImages,
-} from "../../lib/submitHandlers";
+import { submitWithImages } from "../../lib/submitHandlers";
 
 function SearchCard() {
   const [messages, setMessages] = useState([
@@ -28,25 +25,12 @@ function SearchCard() {
   const BATCH_DEBOUNCE = 1200; // ms
   const MAX_BATCH = 4;
 
-  // callOpenAI is provided by ../../lib/openaiClient
-
   async function handleSubmit(e) {
     e.preventDefault();
     const text = input.trim();
     if (!text) return;
-    // If no images have been uploaded, prompt for uploads (delegated)
-    if (!images || images.length === 0) {
-      promptUploadForImages({ text, setMessages, setInput });
-      return;
-    }
-
-    // If images have been uploaded, produce an individual bot response for each image
-    // so the user sees answers tied directly to each photo.
-    if (images && images.length > 0) {
-      setInput("");
-      await submitWithImages({ text, images, setMessages });
-      return; // don't enqueue as regular text-batch
-    }
+    // Previously we sent image-questions immediately. Now we enqueue all text
+    // submissions (including when images exist) so they debounce consistently.
     // add user message and mark as queued
     setMessages((m) => [...m, { from: "user", text, queued: true }]);
     setInput("");
@@ -64,8 +48,6 @@ function SearchCard() {
       if (batchTimerRef.current) clearTimeout(batchTimerRef.current);
       batchTimerRef.current = setTimeout(() => flushBatch(), BATCH_DEBOUNCE);
     }
-
-    // per-submit mock response removed — replies are produced via batching
   }
 
   function flushBatch() {
@@ -87,8 +69,18 @@ function SearchCard() {
       )
     );
 
-    // Call OpenAI to answer the batched questions (include current image names)
+    // Call OpenAI or the image-specific submit handler depending on whether
+    // images are present. We do this inside an async IIFE to keep the same
+    // scheduling semantics as before.
     (async () => {
+      // If there are uploaded images, use the image-focused flow which will
+      // create per-image replies. Otherwise use the regular batched OpenAI call.
+      if (images && images.length > 0) {
+        // submitWithImages expects an array of question strings
+        await submitWithImages({ questions: toProcess, images, setMessages });
+        return;
+      }
+
       const loadingId = Date.now() + Math.random();
       // insert loading bubble
       setMessages((prev) => [

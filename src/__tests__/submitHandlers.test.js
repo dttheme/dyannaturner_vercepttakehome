@@ -51,7 +51,11 @@ describe("submitHandlers", () => {
       Promise.resolve(`Reply for ${imageNames[0]}`)
     );
 
-    await submitWithImages({ text: "Is this new?", images, setMessages });
+    await submitWithImages({
+      questions: ["Is this new?"],
+      images,
+      setMessages,
+    });
 
     const userMsgs = messages.filter((m) => m.from === "user");
     const botReplies = messages.filter((m) => m.from === "bot" && !m.loading);
